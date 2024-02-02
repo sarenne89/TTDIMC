@@ -5,8 +5,13 @@ const geoURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchLocati
 const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=UK&apikey=" + ticketmasterAPI;
 
 $( function() {
-    $("#datepicker").datepicker();
-  } );
+  $( "#datepicker" ).datepicker({
+    showOn: "button",
+    buttonImage: "images/calendar.gif",
+    buttonImageOnly: true,
+    buttonText: "Select date"
+  });
+} );
 
 
 function exampleBanner() {
