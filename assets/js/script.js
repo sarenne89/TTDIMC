@@ -17,18 +17,32 @@ function displayEvents(events) {
       const eventStartDate = event.dates.start.localDate || 'Start Date Not Available';
       const venueName = event._embedded.venues[0].name || 'Venue Name Not Available';
       const venueTime = event.dates.start.localTime
+      const buttonLink = event.url
+      const eventImage = event.images[0].url
 
       // The variable eventHtml stores the html tags where the event details are embedded
       const eventHtml = `
-        <div class="event">
-          <h3>${eventName}</h3>
-          <p>Date: ${eventStartDate}</p>
-          <p>Venue: ${venueName}</p>
-          <p>Time: ${venueTime}</p>
+        <div class="event row mb-0 p-3">
+          <div class="col-6 event-info text-center mb-0">
+            <h3 class="text-center bg-primary text-light p-4 mx-0">${eventName}</h3>
+            <p>Date: ${eventStartDate}</p>
+            <p>Venue: ${venueName}</p>
+            <p>Time: ${venueTime}</p>
+          </div>
+          <div class='col-6 event-image'>
+            <img src=${eventImage} height="250">
+          <div>
         </div>
       `;
       // Appends the details received from the container with id, events into the html tags
-      eventsContainer.append(eventHtml);
+      buttonSection = $("<div>").attr("class", "row")
+      eventButton = $("<button>").attr("class", "event-button btn btn-warning col-12 mx-auto mb-5").text("Buy Tickets Now!")
+      eventButton.on("click", function(){
+        window.open(buttonLink)
+      })
+      eventsContainer.append(eventHtml, buttonSection)
+      buttonSection.append(eventButton)
+      
     });
   } else {
     eventsContainer.text("No events found for the selected location.");
@@ -78,45 +92,3 @@ $(function () {
       });
   });
 });
-
-const searchLocation = $("#search-input").val()
-const geoURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchLocation + "&limit=5&appid=" + weatherAPI;
-const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?countryCode=UK&apikey=" + ticketmasterAPI;
-
-$( function() {
-  $( "#datepicker" ).datepicker({
-    showOn: "button",
-    buttonImage: "images/calendar.gif",
-    buttonImageOnly: true,
-    buttonText: "Select date"
-  });
-} );
-
-
-function exampleBanner() {
-    fetch(ticketmasterURL)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-        console.log(data)
-    eventImage = $(".event-image")
-    eventBanner = $(".event")
-    eventInfo = $(".event-info")
-    eventBackgroundImage = $("<img>").attr({"src": data._embedded.events[0].images[0].url, "height": "200px"})
-    eventImage.append(eventBackgroundImage)
-    eventName = $("<h3>").text(data._embedded.events[0].name).attr("class", "text-center bg-primary text-light p-4 m-0")
-    eventVenue = $("<p>").text(data._embedded.events[0]._embedded.venues[0].name)
-    eventCity = $("<p>").text(data._embedded.events[0]._embedded.venues[0].city.name)
-    eventDate = $("<p>").text(data._embedded.events[0].dates.start.localDate)
-    eventTime = $("<p>").text(data._embedded.events[0].dates.start.localTime)
-    eventLink = $("<button>").text("BUY TICKETS NOW").attr("class", "buyTickets btn btn-primary")
-    eventInfo.append(eventName, eventVenue, eventCity, eventDate, eventTime, eventLink)
-    const buyTicketsButton = $(".buyTickets")
-    buyTicketsButton.on("click", function() {
-      window.open(data._embedded.events[0].url)
-    })
-  })
-}
-
-exampleBanner()
