@@ -28,8 +28,8 @@ function displayEvents(events) {
             <p>Venue: ${venueName}</p>
             <p>Time: ${venueTime}</p>
           </div>
-          <div class='col-6 event-image'>
-            <img src=${eventImage} height="250">
+          <div class='col-6 event-image justify-content-center'>
+            <img class="d-flex" src=${eventImage} height="250">
           <div>
         </div>
       `;
