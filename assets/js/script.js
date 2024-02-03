@@ -3,7 +3,6 @@ const weatherAPI = "aefc3d833526ac11a10cd57951b4969d";
 
 
 function displayEvents(events) {
-  console.log(events);
   // Created an events container in the form of an id to store all the event details
   const eventsContainer = $("#events");
 
@@ -29,8 +28,8 @@ function displayEvents(events) {
             <p>Venue: ${venueName}</p>
             <p>Time: ${venueTime}</p>
           </div>
-          <div class='col-6 event-image'>
-            <img src=${eventImage} height="250">
+          <div class='col-6 event-image justify-content-center'>
+            <img class="d-flex" src=${eventImage} height="250">
           <div>
         </div>
       `;
