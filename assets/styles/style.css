@@ -1,90 +1,106 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:400,400i,600,600i');
-html,body{
-  margin:0;
-  height:120%;
+
+html,
+body {
+  margin: 0;
+  height: 120%;
   font-family: 'Josefin Sans', sans-serif;
 
 }
 
-header{
-  position:relative;
-  overflow:hidden;
-  display:flex;
+header {
+  position: relative;
+  overflow: hidden;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
-  height:50vw;
-  min-height:400px;
-  max-height:550px;
-  min-width:300px;
-  color:#eee;
-}
-header:after{
-  content:"";
-  width:100%;
-  height:100%;
-  position:absolute;
-  bottom:0;
-  left:0;
-  z-index:-1;
- background: linear-gradient(to bottom, rgba(0,0,0,0.12) 40%,rgba(27,32,48,1) 100%);
-}
-header:before{
-  content:"";
-  width:100%;
-  height:200%;
-  position:absolute;
-  top:0;
-  left:0;
-    -webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0); backface-visibility: hidden;
-  scale(1.0, 1.0);
-    transform: translateZ(0);
-  background:#1B2030 url(https://media.timeout.com/images/105485073/image.jpg) 50% 0 no-repeat;
-  background-size:100%;
-  background-attachment:fixed;
-  animation: grow 50s  linear 10ms infinite;
-  transition:all 0.9s ease-in-out;
-  z-index:-2
-}
-header a{
-  color:#eee
+  height: 50vw;
+  min-height: 400px;
+  max-height: 550px;
+  min-width: 300px;
+  color: #eee;
 }
 
-.info{
-  width:100%;
-  padding:15% 10% 0 10%;
-  text-align:center;
-  text-shadow:0 2px 3px rgba(0,0,0,0.2)
+header:after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.12) 40%, rgba(27, 32, 48, 1) 100%);
 }
 
-@keyframes grow{
-  0% { transform: scale(1) translateY(0px)}
-  50% { transform: scale(1.2) translateY(-200px)}
-}
-.content{  
-  padding:5% 10%;
-  text-align:justify
-}
-#events-div{
-    background-color: whitesmoke;
-    height: 400dvh;
+header:before {
+  content: "";
+  width: 100%;
+  height: 200%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  scale: (1.0, 1.0);
+  transform: translateZ(0);
+  background: #1B2030 url(https://media.timeout.com/images/105485073/image.jpg) 50% 0 no-repeat;
+  background-size: 100%;
+  background-attachment: fixed;
+  animation: grow 50s linear 10ms infinite;
+  transition: all 0.9s ease-in-out;
+  z-index: -2
 }
 
-aside{ 
-    align-items: start;
-    position: sticky;
-    top: 0;
-    background-color: pink;
+header a {
+  color: #eee
 }
-.card{
-    width: 80%;
+
+.info {
+  width: 100%;
+  padding: 15% 10% 0 10%;
+  text-align: center;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.2)
 }
-#datepicker{
-    background-color: aliceblue;
+
+@keyframes grow {
+  0% {
+    transform: scale(1) translateY(0px)
+  }
+
+  50% {
+    transform: scale(1.2) translateY(-200px)
+  }
 }
-#logo{
-    position: absolute;
-    top: 150px;
+
+.content {
+  padding: 5% 10%;
+  text-align: justify
+}
+
+#events-div {
+  background-color: whitesmoke;
+  height: 400dvh;
+}
+
+aside {
+  align-items: start;
+  position: sticky;
+  top: 0;
+  background-color: pink;
+}
+
+.card {
+  width: 80%;
+}
+
+#datepicker {
+  background-color: aliceblue;
+}
+
+#logo {
+  position: absolute;
+  top: 150px;
 }
