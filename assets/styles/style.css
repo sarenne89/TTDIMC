@@ -104,3 +104,7 @@ aside {
   position: absolute;
   top: 150px;
 }
+
+.event-image {
+  background-image: url(eventImage)
+}

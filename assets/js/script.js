@@ -21,28 +21,26 @@ function displayEvents(events) {
       const buttonLink = event.url
       const eventImage = event.images[0].url
 
-      // The variable eventHtml stores the html tags where the event details are embedded
-      const eventHtml = `
-        <div class="event row mb-0 p-3">
-          <div class="col-6 event-info text-center mb-0">
-            <h3 class="text-center bg-primary text-light p-4 mx-0">${eventName}</h3>
-            <p>Date: ${eventStartDate}</p>
-            <p>Venue: ${venueName}</p>
-            <p>Time: ${venueTime}</p>
-          </div>
-          <div class='col-6 event-image justify-content-center'>
-            <img class="d-flex" src=${eventImage} height="250">
-          <div>
-        </div>
-      `;
+      eventDiv = $("<div>").attr("class", "border event row my-5 py-2 pl-2 pr-0")
+      eventInfoDiv = $("<div>").attr("class", "col-6 event-info text-center m-0")
+      eventTitle = $("<h3>").attr("class", "text-center bg-primary text-light p-3 mx-0").text(eventName)
+      eventDate = $("<p>").text(dayjs(eventStartDate, "YYYY-DD-MM").format("DD-MMM-YYYY"))
+      eventVenue = $("<p>").text(venueName)
+      eventTime = $("<p>").text(venueTime)
+      buttonSection = $("<div>").attr("class", "row")
+      eventImageDiv = $("<div>").attr("class", "col-6 event-image row text-center m-0 p-0")
+      eventImages = $("<img>").attr({"src": eventImage, "width": "400px"})
       // Appends the details received from the container with id, events into the html tags
-      const buttonSection = $("<div>").attr("class", "row")
-      const eventButton = $("<button>").attr("class", "event-button btn btn-warning col-12 mx-auto mb-5").text("Buy Tickets Now!")
+      
+      eventButton = $("<button>").attr("class", "event-button btn btn-warning col-12 mx-auto mb-5").text("Buy Tickets Now!")
       eventButton.on("click", function(){
         window.open(buttonLink)
       })
-      eventsContainer.append(eventHtml, buttonSection)
+      eventsContainer.append(eventDiv)
+      eventDiv.append(eventInfoDiv, eventImageDiv)
+      eventInfoDiv.append(eventTitle, eventDate, eventVenue, eventTime, buttonSection)
       buttonSection.append(eventButton)
+      eventImageDiv.append(eventImages)
 
       // I am adding a div that will store the buttons at the end of the page
       const buttonDiv = $("<div>").attr("class", "row mt-3");
