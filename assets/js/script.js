@@ -42,27 +42,25 @@ function displayEvents(events) {
         window.open(buttonLink)
       })
       eventsContainer.append(eventHtml, buttonSection)
-      buttonSection.append(eventButton)
-
-      // I am adding a div that will store the buttons at the end of the page
-      const buttonDiv = $("<div>").attr("class", "row mt-3");
-      
-      // The variable stores the previous button and when it is clicked it returns to the previous page and displays the data
-      const prevBtn = $("<button>").attr("class", "btn btn-secondary col-6").text("Previous").on("click", function(){
-        if(currentPage>1){
-          currentPage--;
-        }
-      });
-
-      // The variable below stores the next button and fetches new data when it is clicked
-      const nextBtn = $("<button>").attr("class", "btn btn-primary col-6").text("Next").on("click", function(){
-        currentPage++;
-      });
-
-      buttonDiv.append(prevBtn, nextBtn);
-      eventsContainer.append(buttonDiv)
-      
+      buttonSection.append(eventButton) 
     });
+     // I am adding a div that will store the buttons at the end of the page
+     const buttonDiv = $("<div>").attr("class", "row mt-3");
+      
+     // The variable stores the previous button and when it is clicked it returns to the previous page and displays the data
+     const prevBtn = $("<button>").attr("class", "btn btn-secondary col-6").text("Previous").on("click", function(){
+       if(currentPage>1){
+         currentPage--;
+       }
+     });
+
+     // The variable below stores the next button and fetches new data when it is clicked
+     const nextBtn = $("<button>").attr("class", "btn btn-primary col-6").text("Next").on("click", function(){
+       currentPage++;
+     });
+
+     buttonDiv.append(prevBtn, nextBtn);
+     eventsContainer.append(buttonDiv)
   } else {
     eventsContainer.text("No events found for the selected location.");
   }
