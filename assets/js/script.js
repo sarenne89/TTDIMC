@@ -29,7 +29,7 @@ function displayEvents(events) {
       eventTime = $("<p>").text(venueTime)
       buttonSection = $("<div>").attr("class", "row")
       eventImageDiv = $("<div>").attr("class", "col-6 event-image row text-center m-0 p-0")
-      eventImages = $("<img>").attr({"src": eventImage, "width": "400px"})
+      eventImages = $("<img>").attr({"src": eventImage, "max-width": "400px"})
       // Appends the details received from the container with id, events into the html tags
       
       eventButton = $("<button>").attr("class", "event-button btn btn-warning col-12 mx-auto mb-5").text("Buy Tickets Now!")
@@ -41,26 +41,27 @@ function displayEvents(events) {
       eventInfoDiv.append(eventTitle, eventDate, eventVenue, eventTime, buttonSection)
       buttonSection.append(eventButton)
       eventImageDiv.append(eventImages)
+  
+    });
 
       // I am adding a div that will store the buttons at the end of the page
-      const buttonDiv = $("<div>").attr("class", "row mt-3");
+    const buttonDiv = $("<div>").attr("class", "row mt-3");
       
-      // The variable stores the previous button and when it is clicked it returns to the previous page and displays the data
-      const prevBtn = $("<button>").attr("class", "btn btn-secondary col-6").text("Previous").on("click", function(){
-        if(currentPage>1){
-          currentPage--;
-        }
-      });
-
-      // The variable below stores the next button and fetches new data when it is clicked
-      const nextBtn = $("<button>").attr("class", "btn btn-primary col-6").text("Next").on("click", function(){
-        currentPage++;
-      });
-
-      buttonDiv.append(prevBtn, nextBtn);
-      eventsContainer.append(buttonDiv)
-      
+    // The variable stores the previous button and when it is clicked it returns to the previous page and displays the data
+    const prevBtn = $("<button>").attr("class", "btn btn-secondary col-5 mx-auto my-3").text("<<< Previous").on("click", function(){
+      if(currentPage>1){
+        currentPage--;
+      }
     });
+
+    // The variable below stores the next button and fetches new data when it is clicked
+    const nextBtn = $("<button>").attr("class", "btn btn-primary col-5 mx-auto my-3").text("Next >>>").on("click", function(){
+      currentPage++;
+    });
+
+    buttonDiv.append(prevBtn, nextBtn);
+    eventsContainer.append(buttonDiv)
+
   } else {
     eventsContainer.text("No events found for the selected location.");
   }
