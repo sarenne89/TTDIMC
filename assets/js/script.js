@@ -92,7 +92,30 @@ $(function () {
           const latitude = locationDetails.lat;
           const longitude = locationDetails.lon;
           const requestedDate = dayjs($("#datepicker").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
-          const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&startDateTime=" + requestedDate + "T00:00:00Z&apikey=" + ticketmasterAPI
+          if ($("#datepicker").val() === ""){
+           const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&apikey=" + ticketmasterAPI;
+           fetch(ticketmasterURL)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              // returns all events and displays it
+              let events = data._embedded.events || [];
+              displayEvents(events);
+            });
+          }
+          else {
+            const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&startDateTime=" + requestedDate + "T00:00:00Z&apikey=" + ticketmasterAPI;
+            fetch(ticketmasterURL)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              // returns all events and displays it
+              let events = data._embedded.events || [];
+              displayEvents(events);
+            });
+          }
           const weatherURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + weatherAPI;
           fetch(weatherURL)
                 .then(function(response) {
@@ -104,17 +127,7 @@ $(function () {
                   $("#weatherTemp").text("Temp: " + (weatherData.main.temp -= 273.15).toFixed(0) + "°C")
                   $("#weatherWind").text("Wind: " + weatherData.wind.speed + " m/s")
                   $("#weatherHumidity").text("Humidity: " + weatherData.main.humidity + "%")
-                })
-
-          fetch(ticketmasterURL)
-            .then(function (response) {
-              return response.json();
-            })
-            .then(function (data) {
-              // returns all events and displays it
-              let events = data._embedded.events || [];
-              displayEvents(events);
-            });
+                })         
         } else {
           $("#location-details").text("Location details not found.");
           }
