@@ -3,7 +3,6 @@ const weatherAPI = "aefc3d833526ac11a10cd57951b4969d";
 // The variable keeps track of the current page
 let currentPage = 1;
 
-
 function displayEvents(events) {
   // Created an events container in the form of an id to store all the event details
   const eventsContainer = $("#events");
@@ -92,23 +91,10 @@ $(function () {
           // the variables latitude and longitude store the lat and lon from the locationDetails object
           const latitude = locationDetails.lat;
           const longitude = locationDetails.lon;
-
-          const ticketmasterURL = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${ticketmasterAPI}&latlong=${latitude},${longitude}&radius=10`;
-          const weatherURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + weatherAPI;
-          fetch(weatherURL)
-                .then(function(response) {
-                    return response.json()
-                }).then(function(weatherData) {
-                  console.log(weatherData)
-                  $("#weather").attr("class", "row")
-                  $("#weatherLocation").text(weatherData.name)
-                  $("#weatherIcon").attr("src", "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png")
-                  $("#weatherTemp").text("Temp: " + (weatherData.main.temp -= 273.15).toFixed(0) + "°C")
-                  $("#weatherWind").text("Wind: " + weatherData.wind.speed + " m/s")
-                  $("#weatherHumidity").text("Humidity: " + weatherData.main.humidity + "%")
-                })
-
-          fetch(ticketmasterURL)
+          const requestedDate = dayjs($("#datepicker").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
+          if ($("#datepicker").val() === ""){
+           const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&apikey=" + ticketmasterAPI;
+           fetch(ticketmasterURL)
             .then(function (response) {
               return response.json();
             })
@@ -117,6 +103,31 @@ $(function () {
               let events = data._embedded.events || [];
               displayEvents(events);
             });
+          }
+          else {
+            const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&startDateTime=" + requestedDate + "T00:00:00Z&apikey=" + ticketmasterAPI;
+            fetch(ticketmasterURL)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              // returns all events and displays it
+              let events = data._embedded.events || [];
+              displayEvents(events);
+            });
+          }
+          const weatherURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + weatherAPI;
+          fetch(weatherURL)
+                .then(function(response) {
+                    return response.json()
+                }).then(function(weatherData) {
+                  $("#weather").attr("class", "row")
+                  $("#weatherLocation").text(weatherData.name)
+                  $("#weatherIcon").attr("src", "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png")
+                  $("#weatherTemp").text("Temp: " + (weatherData.main.temp -= 273.15).toFixed(0) + "°C")
+                  $("#weatherWind").text("Wind: " + weatherData.wind.speed + " m/s")
+                  $("#weatherHumidity").text("Humidity: " + weatherData.main.humidity + "%")
+                })         
         } else {
           $("#location-details").text("Location details not found.");
           }
