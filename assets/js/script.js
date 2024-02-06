@@ -3,7 +3,6 @@ const weatherAPI = "aefc3d833526ac11a10cd57951b4969d";
 // The variable keeps track of the current page
 let currentPage = 1;
 
-
 function displayEvents(events) {
   // Created an events container in the form of an id to store all the event details
   const eventsContainer = $("#events");
@@ -92,14 +91,13 @@ $(function () {
           // the variables latitude and longitude store the lat and lon from the locationDetails object
           const latitude = locationDetails.lat;
           const longitude = locationDetails.lon;
-
-          const ticketmasterURL = `https://app.ticketmaster.com/discovery/v2/events.json?apikey=${ticketmasterAPI}&latlong=${latitude},${longitude}&radius=10`;
+          const requestedDate = dayjs($("#datepicker").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
+          const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&startDateTime=" + requestedDate + "T00:00:00Z&apikey=" + ticketmasterAPI
           const weatherURL = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=" + weatherAPI;
           fetch(weatherURL)
                 .then(function(response) {
                     return response.json()
                 }).then(function(weatherData) {
-                  console.log(weatherData)
                   $("#weather").attr("class", "row")
                   $("#weatherLocation").text(weatherData.name)
                   $("#weatherIcon").attr("src", "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png")
