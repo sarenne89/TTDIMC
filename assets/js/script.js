@@ -1,7 +1,5 @@
 const ticketmasterAPI = "TovktxkNd9SCHIbV6i86RNM5LCG0A2r9";
 const weatherAPI = "aefc3d833526ac11a10cd57951b4969d";
-// The variable keeps track of the current page
-let currentPage = 1;
 
 function displayEvents(events) {
   // Created an events container in the form of an id to store all the event details
@@ -154,6 +152,13 @@ $(function () {
 
     const searchLocation = $("#search-input").val();
     const geoURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + searchLocation + "&limit=1&appid=" + weatherAPI;
+
+    // retrieves/saves to localStorage
+    localStorage.getItem("searchHistory")
+    let retrievedHistory = localStorage.getItem("searchHistory")
+    ? JSON.parse(localStorage.getItem("searchHistory")) : [];
+    retrievedHistory.unshift(searchLocation + " " + $("#datepicker").val())
+    localStorage.setItem("searchHistory", JSON.stringify(retrievedHistory));
 
     fetch(geoURL)
       .then(function (response) {
