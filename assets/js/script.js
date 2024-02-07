@@ -45,7 +45,7 @@ function displayEvents(events) {
     });
 
       // I am adding a div that will store the buttons at the end of the page
-    const buttonDiv = $("<div>").attr("class", "row mt-3");
+    const buttonDiv = $("<div>").attr("class", "row my-5");
       
     // The variable stores the previous button and when it is clicked it returns to the previous page and displays the data
     const prevBtn = $("<button>").attr("class", "btn btn-secondary col-5 mx-auto my-3").text("<<< Previous").on("click", function(){
