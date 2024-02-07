@@ -85,7 +85,6 @@ header a {
 
 #events-div {
   background-color: whitesmoke;
-  height: 70dvh;
 }
 
 aside {
@@ -116,3 +115,6 @@ aside {
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
 }
 
+.border{
+
+}
