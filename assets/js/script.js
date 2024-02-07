@@ -6,6 +6,7 @@ let currentPage = 1;
 function displayEvents(events) {
   // Created an events container in the form of an id to store all the event details
   const eventsContainer = $("#events");
+  $("#events-div").attr("class", "col-lg-9 pb-3")
 
   // The logic below clears the html element before the new request is appended to the html element
   eventsContainer.empty();
@@ -48,15 +49,94 @@ function displayEvents(events) {
       
     // The variable stores the previous button and when it is clicked it returns to the previous page and displays the data
     const prevBtn = $("<button>").attr("class", "btn btn-secondary col-5 mx-auto my-3").text("<<< Previous").on("click", function(){
-      if(currentPage>1){
-        currentPage--;
-      }
+      $("#events").empty()
+      const requestedDate = dayjs($("#datepicker").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
+      const searchLocation = $("#search-input").val()
+          if ($("#datepicker").val() === ""){
+          const ticketmasterAPI = "TovktxkNd9SCHIbV6i86RNM5LCG0A2r9";
+           const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&apikey=" + ticketmasterAPI;
+           fetch(ticketmasterURL)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              fetch("https://app.ticketmaster.com/" + data._links.first.href + "&apikey=" + ticketmasterAPI)
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (data) {
+                // returns all events and displays it
+                let events = data._embedded.events || [];
+                displayEvents(events);
+              });
+            });
+          }
+          else {
+            const ticketmasterAPI = "TovktxkNd9SCHIbV6i86RNM5LCG0A2r9";
+            const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&startDateTime=" + requestedDate + "T00:00:00Z&apikey=" + ticketmasterAPI;
+            fetch(ticketmasterURL)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              fetch("https://app.ticketmaster.com/" + data._links.first.href + "&apikey=" +ticketmasterAPI)
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (data) {
+                // returns all events and displays it
+                let events = data._embedded.events || [];
+                displayEvents(events);
+              });
+            });
+          }
     });
 
     // The variable below stores the next button and fetches new data when it is clicked
     const nextBtn = $("<button>").attr("class", "btn btn-primary col-5 mx-auto my-3").text("Next >>>").on("click", function(){
-      currentPage++;
-    });
+      $("#events").empty()
+      const requestedDate = dayjs($("#datepicker").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
+      const searchLocation = $("#search-input").val()
+          if ($("#datepicker").val() === ""){
+          const ticketmasterAPI = "TovktxkNd9SCHIbV6i86RNM5LCG0A2r9";
+           const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&apikey=" + ticketmasterAPI;
+           fetch(ticketmasterURL)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              fetch("https://app.ticketmaster.com/" + data._links.next.href + "&apikey=" + ticketmasterAPI)
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (data) {
+                // returns all events and displays it
+                let events = data._embedded.events || [];
+                displayEvents(events);
+              });
+            });
+          }
+          else {
+            const ticketmasterAPI = "TovktxkNd9SCHIbV6i86RNM5LCG0A2r9";
+            const ticketmasterURL = "https://app.ticketmaster.com/discovery/v2/events.json?city=" + searchLocation + "&startDateTime=" + requestedDate + "T00:00:00Z&apikey=" + ticketmasterAPI;
+            fetch(ticketmasterURL)
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              fetch("https://app.ticketmaster.com/" + data._links.next.href + "&apikey=" +ticketmasterAPI)
+              .then(function (response) {
+                return response.json();
+              })
+              .then(function (data) {
+                // returns all events and displays it
+                let events = data._embedded.events || [];
+                displayEvents(events);
+              });
+            });
+          }
+
+          });
 
     buttonDiv.append(prevBtn, nextBtn);
     eventsContainer.append(buttonDiv)
@@ -112,6 +192,7 @@ $(function () {
             })
             .then(function (data) {
               // returns all events and displays it
+              console.log(data)
               let events = data._embedded.events || [];
               displayEvents(events);
             });
