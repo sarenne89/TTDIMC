@@ -1,4 +1,4 @@
-# project-1
+# Things To Do In My City (TTDIMC)
 Project 1 edX Bootcamp
 
 ## Description
