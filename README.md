@@ -10,6 +10,8 @@ Have you gotten exhausted surfing the internet looking for events happening with
 Well, I have good news because The Things To Do In My City app resolves this problem. It alleviates the burden of spending your free time looking for activities.
 Everything has been brought into one place for you, all you need is to type your location and what date you wish to engage in activities. Once you populate the required fields with information, the app shows you all the activities that will be happening in your city within the time period.
 
+Here is a link to the deployed application: https://sarenne89.github.io/project-1/
+
 ## Usage
 
 No installation is required. All you need is a device that has access to the internet and with that you can start using our product.
