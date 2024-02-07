@@ -5,6 +5,7 @@ body {
   margin: 0;
   height: 120%;
   font-family: 'Josefin Sans', sans-serif;
+  background: linear-gradient(45deg,#0B2B4A,#2077CF);
 
 }
 
@@ -18,9 +19,11 @@ header {
   align-content: flex-start;
   height: 50vw;
   min-height: 400px;
-  max-height: 550px;
-  min-width: 300px;
+  max-height: 50%;
+  min-width: 100%;
   color: #eee;
+  border-radius: 0 0 50% 50%;
+  transform: scaleX(1);
 }
 
 header:after {
@@ -82,7 +85,7 @@ header a {
 
 #events-div {
   background-color: whitesmoke;
-  height: 400dvh;
+  height: 70dvh;
 }
 
 aside {
