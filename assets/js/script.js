@@ -21,7 +21,7 @@ function displayEvents(events) {
 
       eventDiv = $("<div>").attr("class", "border event row my-5 py-2 pl-2 pr-0")
       eventInfoDiv = $("<div>").attr("class", "col-6 event-info text-center m-0")
-      eventTitle = $("<h3>").attr("class", "event-title text-center text-light p-3 mx-0").text(eventName)
+      eventTitle = $("<h3>").attr("class", "text-center text-light p-3 mx-0").text(eventName)
       eventDate = $("<p>").text(dayjs(eventStartDate, "YYYY-DD-MM").format("DD-MMM-YYYY"))
       eventVenue = $("<p>").text(venueName)
       eventTime = $("<p>").text(venueTime)
